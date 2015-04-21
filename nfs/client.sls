@@ -1,18 +1,21 @@
 {% from "nfs/map.jinja" import nfs with context %}
+{% macro get(value, item) %}
+  {{ value.get(item, nfs.mounts.get(item)) }}
+{% endmacro %}
 
 nfs-client-deps:
     pkg.installed:
         - pkgs: {{ nfs.pkgs_client|json }}
 
 {% for mount in nfs.mounts %}
-{{mount.mount_point}}:
+{{get(mount, 'mount_point')}}:
     mount.mounted:
-        - device: {{mount.url}}
+        - device: {{get(mount, 'url')}}
         - fstype: nfs
-        - mkmnt: {{mount.managed}}
-        - opts: {{mount.opts}}
-        - config: {{mount.config}}
-        - persist: {{mount.persist}}
-        - mount: {{mount.mount}}
-        - user: {{mount.user}}
+        - mkmnt: {{get(mount, 'mkmnt')}}
+        - opts: {{get(mount, 'opts')}}
+        - config: {{get(mount, 'config')}}
+        - persist: {{get(mount, 'persist')}}
+        - mount: {{get(mount, 'mount')}}
+        - user: {{get(mount, 'user')}}
 {% endfor %}
