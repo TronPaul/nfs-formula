@@ -7,7 +7,7 @@ nfs-client-deps:
     pkg.installed:
         - pkgs: {{ nfs.pkgs_client|json }}
 
-{% for mount in nfs.mounts %}
+{% for mount in nfs.client.mounts %}
 {{get(mount, 'mount_point')}}:
     mount.mounted:
         - device: {{get(mount, 'url')}}
