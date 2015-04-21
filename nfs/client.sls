@@ -13,5 +13,6 @@ nfs-client-deps:
         - opts: {{mount.opts}}
         - config: {{mount.config}}
         - persist: {{mount.persist}}
+        - mount: {{mount.mount}}
         - user: {{mount.user}}
 {% endfor %}
